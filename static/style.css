@@ -1,0 +1,80 @@
+.background-image{
+
+    background-image: url('menu.jpg');
+
+    /* Zapewnienie pełnego pokrycia ekranu przez tło */
+    background-size: cover;
+
+    /* Ustawienie tła, aby nie powtarzało się */
+    background-repeat: no-repeat;
+
+    /* Wycentrowanie obrazu tła */
+    background-position: center center;
+
+    /* Opcja, aby tło pozostawało nieruchome nawet podczas przewijania strony */
+    background-attachment: fixed;
+}
+
+/* styles.css */
+.p1 {
+    background-color: white; /* Białe tło */
+    color: black; /* Czarny tekst */
+    border: 0.2rem solid black; /* Czarna ramka, zwiększona grubość */
+    padding: 1rem 2rem; /* Zwiększone paddingi dla większej powierzchni kliknięcia */
+    font-family: 'Bebas Neue', sans-serif; /* Czcionka Bebas Neue */
+    font-size: 2rem; /* Zwiększona wielkość czcionki */
+    border-radius: 1rem; /* Większe zaokrąglenia rogów */
+    text-decoration: none; /* Usunięcie podkreślenia tekstu */
+    display: inline-block; /* Pozwala na stosowanie paddingu i innych właściwości bloku */
+    cursor: pointer; /* Kursor wskaźnika */
+    transition: all 0.3s ease; /* Gładka animacja przejścia */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Dodanie subtelnej cieniowania */
+
+    position: absolute;
+    left:30%;
+    bottom: 13%;
+}
+
+.p1:hover {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+
+
+.p3 {
+    background-color: white; /* Białe tło */
+    color: black; /* Czarny tekst */
+    border: 0.2rem solid black; /* Czarna ramka, zwiększona grubość */
+    padding: 1rem 2rem; /* Zwiększone paddingi dla większej powierzchni kliknięcia */
+    font-family: 'Bebas Neue', sans-serif; /* Czcionka Bebas Neue */
+    font-size: 2rem; /* Zwiększona wielkość czcionki */
+    border-radius: 1rem; /* Większe zaokrąglenia rogów */
+    text-decoration: none; /* Usunięcie podkreślenia tekstu */
+    display: inline-block; /* Pozwala na stosowanie paddingu i innych właściwości bloku */
+    cursor: pointer; /* Kursor wskaźnika */
+    transition: all 0.3s ease; /* Gładka animacja przejścia */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Dodanie subtelnej cieniowania */
+
+    position: absolute;
+    right:30%;
+    bottom: 13%;
+}
+
+.p3:hover {
+    animation: pulse 1s infinite;
+}
