@@ -5,6 +5,30 @@
     <title>Title</title>
 </head>
 <body>
+    <h1>Quiz Muzyczny</h1>
+    <h2>Runda: {{ round + 1 }} | Wynik: {{ score }}</h2>
 
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <h2>Odsłuchaj utwór i zgadnij jego tytuł:</h2>
+    <audio controls>
+        <source src="{{ url_for('static', filename=song.file) }}" type="audio/mpeg">
+        Twój przeglądarka nie wspiera elementu audio.
+    </audio>
+    <form action="{{ url_for('podstrona1') }}" method="post">
+        {% for option in options %}
+        <input type="radio" id="{{ option.title }}" name="choice" value="{{ option.title }}">
+        <label for="{{ option.title }}">{{ option.title }}</label><br>
+        {% endfor %}
+        <button type="submit">Wyślij odpowiedź</button>
+    </form>
 </body>
 </html>
