@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='podstrona1.css') }}">
     <title>Title</title>
 </head>
-<body class="background-image">
-    <h1 class="tytul">Quiz Muzyczny</h1>
+<body>
+    <h1>Quiz Muzyczny</h1>
     <h2>Runda: {{ round + 1 }} | Wynik: {{ score }}</h2>
 
     {% with messages = get_flashed_messages(with_categories=True) %}

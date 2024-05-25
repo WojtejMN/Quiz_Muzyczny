@@ -1,0 +1,19 @@
+.background-image{
+
+    background-image: url('menu.jpg');
+
+    /* Zapewnienie pełnego pokrycia ekranu przez tło */
+    background-size: cover;
+
+    /* Ustawienie tła, aby nie powtarzało się */
+    background-repeat: no-repeat;
+
+    /* Wycentrowanie obrazu tła */
+    background-position: center center;
+
+    /* Opcja, aby tło pozostawało nieruchome nawet podczas przewijania strony */
+    background-attachment: fixed;
+}
+.tytul {
+
+}

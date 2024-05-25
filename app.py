@@ -28,13 +28,7 @@ songs = [
     {"title": "Play Hard", "file": "music/David Guetta - Play Hard.mp3"},
     {"title": "Fireflies", "file": "music/Owl City - Fireflies.mp3"},
     {"title": "Payphone", "file": "music/Maroon 5 Ft. Wiz Khalifa - Payphone.mp3"},
-    {"title": "Zawsze tam gdzie ty", "file": "music/Lady Pank Zawsze tam gdzie ty.mp3"},
-    {"title": "Na co komu dziś", "file": "music/Lady Pank - Na co komu dziś.mp3"},
-    {"title": "Symetryczno-Liryczna", "file": "music/Enej - Symetryczno-Liryczna.mp3"},
-    {"title": "Lili", "file": "music/Enej - Lili.mp3"},
-    {"title": "Skrzydlate Ręce", "file": "music/Enej Skrzydlate Ręce.mp3"},
-    {"title": "Peron", "file": "music/Jamal - Peron.mp3"},
-    {"title": "Otwieram Wino", "file": "music/Sidney Polak - Otwieram Wino.mp3"}
+
 ]
 
 
@@ -61,7 +55,7 @@ def podstrona1():
         session['round'] += 1
 
     # Losuje nową piosenkę i odpowiedzi tylko przy GET
-    if request.method == 'GET' or 'correct_answer' not in session:
+    if request.method == 'Get' or 'correct_answer' not in session:
         correct_song = choice(songs)
         options = sample(songs, 4)
         if correct_song not in options:
