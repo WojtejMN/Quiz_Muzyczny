@@ -2,34 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='podstrona1.css') }}">
-    <title>Title</title>
+    <title>QUIZ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='podstrona1styl.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
 </head>
+
 <body class="background-image">
-    <h1 class="tytul">Quiz Muzyczny</h1>
-    <h2>Runda: {{ round + 1 }} | Wynik: {{ score }}</h2>
+  <video class="video-bg" autoplay muted loop>
+        <source src="{{ url_for('static', filename='Podstrona1tlo.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container">
+        <h1>CO JEST GRANE?</h1>
 
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
+        <div class="quiz-info">
+            <p>Ilość punktów: {{ score }} | Runda: {{ round }}</p>
+        </div>
+
+        <audio autoplay>
+            <source src="{{ url_for('static', filename=song['file']) }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <form id="quizForm" method="POST" action="/templates">
+            <input type="hidden" id="choice" name="choice">
+            <div class="options">
+                {% for option in options %}
+                    <div class="option" onclick="selectOption('{{ option['title'] }}')">
+                        {{ option['title'] }}
+                    </div>
                 {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+            </div>
+        </form>
+    </div>
+    <script>
+        let timer;
+        let timerDuration = 15000;
 
-    <h2>Odsłuchaj utwór i zgadnij jego tytuł:</h2>
-    <audio controls>
-        <source src="{{ url_for('static', filename=song.file) }}" type="audio/mpeg">
-        Twój przeglądarka nie wspiera elementu audio.
-    </audio>
-    <form action="{{ url_for('podstrona1') }}" method="post">
-        {% for option in options %}
-        <input type="radio" id="{{ option.title }}" name="choice" value="{{ option.title }}">
-        <label for="{{ option.title }}">{{ option.title }}</label><br>
-        {% endfor %}
-        <button type="submit">Wyślij odpowiedź</button>
-    </form>
+        function selectOption(option) {
+            clearTimeout(timer);
+            document.getElementById('choice').value = option;
+            highlightAnswers(option);
+            setTimeout(() => {
+                document.getElementById('quizForm').submit();
+            }, 2000);
+        }
+
+        function highlightAnswers(selectedOption) {
+            let correctAnswer = "{{ correct_answer }}";
+            let options = document.getElementsByClassName('option');
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].innerText.trim() === correctAnswer) {
+                    options[i].classList.add('correct');
+                } else {
+                    options[i].classList.add('incorrect');
+                }
+            }
+        }
+
+        window.onload = function() {
+            timer = setTimeout(() => {
+                document.getElementById('choice').value = "no_selection";
+                highlightAnswers("no_selection");
+                setTimeout(() => {
+                    document.getElementById('quizForm').submit();
+                }, 2000);
+            }, timerDuration);
+        };
+    </script>
 </body>
 </html>

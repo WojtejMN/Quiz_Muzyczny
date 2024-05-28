@@ -61,41 +61,47 @@ songs = [
     {"title": "I Dont Fuck With You", "file": "music/Big Sean - I Dont Fuck With You.mp3"}
 ]
 
-
-
 @app.route('/')
 def index():
     return render_template('index.html', name='Gość')
 
-
 @app.route('/templates', methods=['GET', 'POST'])
 def podstrona1():
-    global correct_song, options
-    if 'score' not in session:
+    if 'score' not in session or request.method == 'GET':
         session['score'] = 0
         session['round'] = 0
 
     if request.method == 'POST':
         selected_option = request.form.get('choice')
-        if selected_option == session['correct_answer']:
-            flash('Dobra odpowiedź!', 'success')
-            session['score'] += 1
+        if selected_option == "no_selection" or selected_option != session['correct_answer']:
+            is_correct = False
         else:
-            flash(f'Zła odpowiedź! Prawidłowy tytuł to: {session["correct_answer"]}', 'error')
+            session['score'] += 1
+            is_correct = True
         session['round'] += 1
 
-    # Losuje nową piosenkę i odpowiedzi tylko przy GET
-    if request.method == 'Get' or 'correct_answer' not in session:
-        correct_song = choice(songs)
-        options = sample(songs, 4)
-        if correct_song not in options:
-            options.pop()
-            options.append(correct_song)
-        options = sample(options, 4)
-        session['correct_answer'] = correct_song['title']
+        if session['round'] >= 5:
+            score = session['score']
+            session.clear()
+            session['score'] = score
+            return redirect(url_for('result'))
 
-    return render_template('podstrona1.html', song=correct_song, options=options, score=session['score'], round=session['round'])
+    # Always pick a new song and options, regardless of GET or POST
+    correct_song = choice(songs)
+    options = sample(songs, 4)
+    if correct_song not in options:
+        options.pop()
+        options.append(correct_song)
+    options = sample(options, 4)
+    session['correct_answer'] = correct_song['title']
 
+    return render_template('podstrona1.html', song=correct_song, options=options, score=session['score'], round=session['round'], correct_answer=session['correct_answer'])
+
+@app.route('/result')
+def result():
+    score = session.get('score', 0)
+    points_text = 'punkt' if score == 1 else 'punkty' if score in [2, 3, 4] else 'punktów'
+    return render_template('podstrona1wynik.html', score=score, points_text=points_text)
 
 if __name__ == '__main__':
     app.run(debug=True)

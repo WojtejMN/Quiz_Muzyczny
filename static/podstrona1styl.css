@@ -1,6 +1,18 @@
+.video-bg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    background-size: cover;
+}
 .background-image{
 
-    background-image: url('menu.jpg');
+    background-image: url('podstrona1tlo.mp4');
 
     /* Zapewnienie pełnego pokrycia ekranu przez tło */
     background-size: cover;
@@ -14,6 +26,67 @@
     /* Opcja, aby tło pozostawało nieruchome nawet podczas przewijania strony */
     background-attachment: fixed;
 }
-.tytul {
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    background-color: #f8f9fa;
+    text-align: center;
+}
 
+h1 {
+    font-size: 4.5em; /* 1.5 times the original size */
+    margin-top: 20px;
+    color:white;
+}
+
+.quiz-info {
+    font-size: 3em; /* 1.5 times the original size */
+    margin-top: 20px;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+    width: 80%;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.option {
+    cursor: pointer;
+    margin: 10px;
+    padding: 30px; /* Adjusted for better visibility */
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    display: inline-block;
+    width: calc(45% - 20px); /* Adjusted width for vertical and horizontal alignment */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+    font-size: 2em
+}
+
+.option:hover {
+    background-color: #e0e0e0;
+}
+
+.option.correct {
+    background-color: #28a745 !important;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.option.incorrect {
+    background-color: #dc3545 !important;
+    color: white;
+    transition: background-color 0.3s ease;
 }
