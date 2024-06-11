@@ -2,33 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='podstrona2styl.css') }}">
 </head>
 <body>
-    <h1>Quiz Muzyczny</h1>
-    <h2>Runda: {{ round + 1 }} | Wynik: {{ score }}</h2>
-
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
+    <div class="main-container">
+        <div class="left-container">
+            <div class="container">
+                <div class="image-container">
+                    <img src="{{ current_song['image_url'] }}" alt="Album Art">
+                </div>
+                <div class="progress-container">
+                    <label for="progress-bar" class="visually-hidden">Progress Bar</label>
+                    <input type="range" min="0" max="100" value="0" id="progress-bar">
+                </div>
+                <div class="song-info">
+                    <div id="artist">{{ current_song['artist'] }}</div>
+                    <div id="title">{{ current_song['title'] }}</div>
+                </div>
+                <div class="controls">
+                    <button id="play-btn" class="play" aria-label="Play">Play</button>
+                    <button id="pause-btn" class="pause" aria-label="Pause">Pause</button>
+                    <button id="reset-btn" class="reset" aria-label="Reset">Reset</button>
+                </div>
+            </div>
+        </div>
+        <div class="right-container">
+            <ul class="song-list">
+                {% for song in all_songs %}
+                <li>
+                    <a href="#" class="song-link" data-song="{{ song['file'] }}" data-artist="{{ song['artist'] }}" data-title="{{ song['title'] }}">{{ song['artist'] }} - {{ song['title'] }}</a>
+                </li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    {% endwith %}
+        </div>
+    </div>
 
-    <h2>Odsłuchaj utwór i zgadnij jego tytuł:</h2>
-    <audio controls>
-        <source src="{{ url_for('static', filename=song.file) }}" type="audio/mpeg">
-        Twój przeglądarka nie wspiera elementu audio.
-    </audio>
-    <form action="{{ url_for('podstrona1') }}" method="post">
-        {% for option in options %}
-        <input type="radio" id="{{ option.title }}" name="choice" value="{{ option.title }}">
-        <label for="{{ option.title }}">{{ option.title }}</label><br>
-        {% endfor %}
-        <button type="submit">Wyślij odpowiedź</button>
-    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById('progress-bar');
+            const playButton = document.getElementById('play-btn');
+            const pauseButton = document.getElementById('pause-btn');
+            const resetButton = document.getElementById('reset-btn');
+            const artistElement = document.getElementById('artist');
+            const titleElement = document.getElementById('title');
+            let audio = new Audio("{{ current_song['file'] }}");
+            let currentSongFile = "{{ current_song['file'] }}"; // Store current song file
+
+            function updateProgressBar() {
+                const value = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = value;
+            }
+
+            progressBar.addEventListener('input', function(event) {
+                const value = event.target.value;
+                const duration = audio.duration;
+                audio.currentTime = (value / 100) * duration;
+            });
+
+            playButton.addEventListener('click', function() {
+                console.log('Play button clicked');
+                if (audio.src !== currentSongFile) {
+                    audio.src = currentSongFile;
+                    audio.load();
+                }
+                audio.play().then(() => {
+                    console.log('Playing audio');
+                }).catch(error => {
+                    console.error('Error playing audio:', error);
+                });
+            });
+
+            pauseButton.addEventListener('click', function() {
+                console.log('Pause button clicked');
+                audio.pause();
+            });
+
+            resetButton.addEventListener('click', function() {
+                console.log('Reset button clicked');
+                audio.currentTime = 0;
+                audio.pause();
+                progressBar.value = 0; // Reset progress bar
+            });
+
+            audio.addEventListener('timeupdate', updateProgressBar);
+
+            document.querySelectorAll('.song-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const songFile = this.getAttribute('data-song');
+                    const artist = this.getAttribute('data-artist');
+                    const title = this.getAttribute('data-title');
+                    console.log('Song link clicked:', artist, title);
+                    currentSongFile = songFile; // Update current song file
+                    audio.src = songFile;
+                    artistElement.textContent = artist;
+                    titleElement.textContent = title;
+                    audio.load(); // Load new audio source
+                    audio.play().then(() => {
+                        console.log('Playing new song');
+                    }).catch(error => {
+                        console.error('Error playing new song:', error);
+                    });
+                    progressBar.value = 0; // Reset progress bar
+                });
+            });
+
+            // Check if audio is ready before playing
+            audio.addEventListener('canplaythrough', function() {
+                console.log('Audio is ready to play');
+            });
+
+            audio.addEventListener('error', function(event) {
+                console.error('Error with audio element:', event);
+            });
+        });
+    </script>
 </body>
 </html>

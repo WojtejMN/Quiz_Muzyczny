@@ -5,11 +5,10 @@
     <title>QUIZ</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='podstrona1styl.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
 </head>
 
 <body class="background-image">
-  <video class="video-bg" autoplay muted loop>
+    <video class="video-bg" autoplay muted loop>
         <source src="{{ url_for('static', filename='Podstrona1tlo.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -18,6 +17,10 @@
 
         <div class="quiz-info">
             <p>Ilość punktów: {{ score }} | Runda: {{ round }}</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
 
         <audio autoplay>
@@ -36,6 +39,7 @@
             </div>
         </form>
     </div>
+
     <script>
         let timer;
         let timerDuration = 15000;
@@ -70,6 +74,19 @@
                 }, 2000);
             }, timerDuration);
         };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var progressBar = document.getElementById('progress-bar');
+            var width = 100;
+            var interval = setInterval(function() {
+                if (width <= 0) {
+                    clearInterval(interval);
+                } else {
+                    width--;
+                    progressBar.style.width = width + '%';
+                }
+            }, timerDuration / 100);
+        });
     </script>
 </body>
 </html>

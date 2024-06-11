@@ -1,0 +1,130 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.5rem; /* Powiększenie o 1.5 raza */
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+}
+
+.left-container {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 100vh;
+    border-left: 2px solid white; /* Białe obramowanie */
+}
+
+.container {
+    text-align: center;
+}
+
+.image-container {
+    width: 225px; /* Powiększone o 1.5 raza */
+    height: 225px; /* Powiększone o 1.5 raza */
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 7.5px solid white; /* Powiększone o 1.5 raza */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.progress-container {
+    margin: 30px 0; /* Powiększone o 1.5 raza */
+}
+
+.progress-container input[type=range] {
+    width: 100%;
+}
+
+.song-info {
+    margin-top: 15px; /* Powiększone o 1.5 raza */
+}
+
+.controls {
+    margin-top: 20px; /* Powiększone o 1.5 raza */
+    display: flex;
+    justify-content: center;
+}
+
+.controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls .play::before, .controls .pause::before, .controls .reset::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.controls .play::before {
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent white;
+}
+
+.controls .pause::before {
+    width: 16px;
+    height: 20px;
+    background-color: white;
+    clip-path: polygon(0 0, 40% 0, 40% 100%, 0% 100%, 0 0, 60% 0, 60% 100%, 100% 100%, 100% 0);
+}
+
+.controls .reset::before {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    clip-path: inset(0 0 0 0);
+}
+
+.song-list {
+    list-style-type: none; /* Brak punktowania */
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.song-list li {
+    margin-bottom: 10px; /* Powiększone o 1.5 raza */
+}
+
+.song-list a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Bebas Neue', cursive; /* Czcionka Bebas Neue */
+}
+
+.song-list a:hover {
+    text-decoration: underline;
+}

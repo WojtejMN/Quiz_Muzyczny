@@ -6,14 +6,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <title>Strona Startowa</title>
+</head>
 <body class="background-image">
-
-
 <nav>
-    <a href="{{ url_for('podstrona1') }}" class="p1">Szybka Gra</a>
-    <a href="/strona3" class="p3">Strona 3</a>
+    <a href="{{ url_for('podstrona1') }}" class="button">Szybka Gra</a>
+    <a href="{{ url_for('strona3') }}" class="button">Odtwarzacz Muzyki</a>
+    <a href="/nowa-strona" class="button">Nowa Strona</a>
 </nav>
-
-
 </body>
 </html>

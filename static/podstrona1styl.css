@@ -10,20 +10,11 @@
     transform: translate(-50%, -50%);
     background-size: cover;
 }
-.background-image{
-
+.background-image {
     background-image: url('podstrona1tlo.mp4');
-
-    /* Zapewnienie pełnego pokrycia ekranu przez tło */
     background-size: cover;
-
-    /* Ustawienie tła, aby nie powtarzało się */
     background-repeat: no-repeat;
-
-    /* Wycentrowanie obrazu tła */
     background-position: center center;
-
-    /* Opcja, aby tło pozostawało nieruchome nawet podczas przewijania strony */
     background-attachment: fixed;
 }
 body {
@@ -38,13 +29,13 @@ body {
 }
 
 h1 {
-    font-size: 4.5em; /* 1.5 times the original size */
+    font-size: 4.5em;
     margin-top: 20px;
-    color:white;
+    color: white;
 }
 
 .quiz-info {
-    font-size: 3em; /* 1.5 times the original size */
+    font-size: 3em;
     margin-top: 20px;
     color: white;
 }
@@ -59,20 +50,19 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
 }
 
 .option {
     cursor: pointer;
     margin: 10px;
-    padding: 30px; /* Adjusted for better visibility */
+    padding: 30px;
     background-color: #f0f0f0;
     border-radius: 5px;
     display: inline-block;
-    width: calc(45% - 20px); /* Adjusted width for vertical and horizontal alignment */
+    width: calc(45% - 20px);
     box-sizing: border-box;
     transition: background-color 0.3s ease;
-    font-size: 2em
+    font-size: 2em;
 }
 
 .option:hover {
@@ -89,4 +79,22 @@ h1 {
     background-color: #dc3545 !important;
     color: white;
     transition: background-color 0.3s ease;
+}
+
+.progress-container {
+    width: 100%;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 15px;
+    border: 2px solid white;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+    border-radius: 15px;
+    transition: width 0.15s linear;
 }
